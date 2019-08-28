@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~ngx-toastr/toastr';
+.blue {
+    background-color: blue;
+  }
+  .red {
+    background-color: red;
+  }
+  .yellow {
+    background-color: yellow;
+  }
+  .green {
+    background-color: green;
+  }
+  .white {
+    background-color: grey;
+  }
+  .rainbow {
+    background-color: purple;
+  }
+
+  .pull-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .overflow {
+    height: 300px;
+    overflow: auto;
+  }

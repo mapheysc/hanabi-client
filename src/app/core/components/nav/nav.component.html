@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <button mat-raised-button
+        color="primary"
+        (click)="createGame()">Create Game!</button>
+    <mat-form-field class="pull-right">
+        <mat-label>Select Game</mat-label>
+        <mat-select (selectionChange)="navToGame($event)">
+            <mat-option *ngFor="let game of games"
+                [value]="game.id">
+                {{game.name === 'null' ? game.id : game.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>

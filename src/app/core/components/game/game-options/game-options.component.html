@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Select Game Options</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <input matInput placeholder="Game Name" [(ngModel)]="gameOptions.gameName">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Select Number of Players</mat-label>
+        <mat-select (selectionChange)="selectNumPlayers($event)">
+            <mat-option *ngFor="let p of numPlayers"
+                [value]="p">
+                {{p}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Play Game With Rainbows</mat-label>
+        <mat-select (selectionChange)="selectWithRainbows($event)">
+            <mat-option [value]="true">
+                Yes
+            </mat-option>
+            <mat-option [value]="false">
+                No
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button
+        color="primary"
+        (click)="create()">Create</button>
+</div>

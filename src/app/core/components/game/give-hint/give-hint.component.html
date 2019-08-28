@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Give hint to {{data.player.name}}</h1>
+<div mat-dialog-content>
+    <mat-form-field *ngIf="tellingColor">
+        <mat-label>Pick Color</mat-label>
+        <mat-select (selectionChange)="select($event)">
+            <mat-option *ngFor="let col of getUniqueNonRainbows(data.player.pieces)"
+                [value]="col">
+                {{col}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="tellingNumber">
+        <mat-label>Pick Number</mat-label>
+        <mat-select (selectionChange)="select($event)">
+            <mat-option *ngFor="let num of getUniqueNumbers(data.player.pieces)"
+                [value]="num">
+                {{num}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="!tellingColor || !tellingNumber">
+        Do you want to tell color or number?
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button
+        color="primary"
+        (click)="tellColor()">Color</button>
+    <button mat-raised-button
+        color="primary"
+        (click)="tellNumber()">Number</button>
+</div>

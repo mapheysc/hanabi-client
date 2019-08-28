@@ -1,0 +1,20 @@
+<mat-grid-list cols="1"
+    rowHeight="4:1">
+    <mat-grid-tile [style.background]="'grey'">
+        <mat-grid-tile-header>{{player.name}} | {{player.id}}</mat-grid-tile-header>
+        <mat-card *ngFor="let piece of player.pieces"
+            [ngClass]="{
+            'blue': piece.color == 'blue' && piece.player_has_color,
+            'green': piece.color == 'green' && piece.player_has_color,
+            'yellow': piece.color == 'yellow' && piece.player_has_color,
+            'white': piece.color == 'white' && piece.player_has_color,
+            'red': piece.color == 'red' && piece.player_has_color
+            }"
+            (click)="actionOnPiece(piece)">
+            <mat-card-content>
+                <h2 *ngIf="piece.player_has_number">{{piece.num_fireworks}}</h2>
+                <h2 *ngIf="!piece.player_has_number">*</h2>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

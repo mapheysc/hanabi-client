@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Game Information</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <b>Game Name: {{game.name}}</b>
+            </div>
+            <div class="col-md-4">
+                <b>Number of Errors Left: {{game.num_errors}}</b>
+            </div>
+            <div class="col-md-4">
+                <b>Number of Hints Left: {{game.num_hints}}</b>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <mat-grid-list cols="2"
+            rowHeight="2:1">
+            <mat-grid-tile *ngFor="let player of game.players; let i=index;"
+                [style.background]="bgs[i]">
+                <mat-grid-tile-header>{{player.name}} | {{player.id}}</mat-grid-tile-header>
+                <div class="row">
+                    <mat-card *ngFor="let piece of player.pieces"
+                        [ngClass]="{
+                    'blue': piece.color == 'blue',
+                    'green': piece.color == 'green',
+                    'yellow': piece.color == 'yellow',
+                    'white': piece.color == 'white',
+                    'red': piece.color == 'red',
+                    'rainbow': piece.color == 'rainbow'
+                }">
+                        <mat-card-content>
+                            <h2>{{piece.num_fireworks}}</h2>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <mat-grid-tile-footer>
+                    <button mat-raised-button
+                        (click)="giveHint(player)">Give Hint</button>
+                </mat-grid-tile-footer>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+
+        <app-player *ngIf="game"
+            [playerId]="playerId"
+            [gameId]="game.id"
+            [changed]="changed"></app-player>
+        <mat-grid-list cols="2"
+            rowHeight="10:11">
+            <mat-grid-tile [style.background]="'lightgrey'">
+                <mat-grid-tile-header>Played Pieces</mat-grid-tile-header>
+                <div class="row overflow">
+                    <div *ngFor="let piece of game.played_pieces">
+                        <mat-card [ngClass]="{
+                        'blue': piece.color == 'blue',
+                        'green': piece.color == 'green',
+                        'yellow': piece.color == 'yellow',
+                        'white': piece.color == 'white',
+                        'red': piece.color == 'red',
+                        'rainbow': piece.color == 'rainbow'
+                    }">
+                            <mat-card-content>
+                                <h2>{{piece.num_fireworks}}</h2>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile [style.background]="'lightgrey'">
+                <mat-grid-tile-header>Binned Pieces</mat-grid-tile-header>
+                <div class="row overflow">
+                    <div *ngFor="let piece of game.binned_pieces">
+                        <mat-card [ngClass]="{
+                        'blue': piece.color == 'blue',
+                        'green': piece.color == 'green',
+                        'yellow': piece.color == 'yellow',
+                        'white': piece.color == 'white',
+                        'red': piece.color == 'red',
+                        'rainbow': piece.color == 'rainbow'
+                    }">
+                            <mat-card-content>
+                                <h2>{{piece.num_fireworks}}</h2>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+</div>
