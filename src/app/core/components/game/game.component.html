@@ -1,6 +1,14 @@
 <div class="row">
     <div class="col-md-12">
-        <h2>Game Information</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Game Information</h2>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-danger"
+                    (click)="delete()"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <b>Game Name: {{game.name}}</b>

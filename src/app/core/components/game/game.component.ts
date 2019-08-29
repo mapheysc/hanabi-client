@@ -88,4 +88,10 @@ export class GameComponent implements OnInit {
     });
   }
 
+  delete() {
+    this.gameService.deleteGame(this.game.id).subscribe(res => {
+      this.router.navigate(['/']);
+    });
+  }
+
 }

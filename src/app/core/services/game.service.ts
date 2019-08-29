@@ -17,7 +17,11 @@ export class GameService {
   }
 
   getGame(gameId: number) {
-    return this.appService.get('game?id=' + gameId);
+    return this.appService.get('game/' + gameId);
+  }
+
+  deleteGame(gameId) {
+    return this.appService.delete('game/' + gameId);
   }
 
   getAll() {
