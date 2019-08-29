@@ -29,7 +29,7 @@ export class GameComponent implements OnInit {
     private playerService: PlayerService,
     private appService: AppService,
     public dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
     ) { }
 
   ngOnInit() {

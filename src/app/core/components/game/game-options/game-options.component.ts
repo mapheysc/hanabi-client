@@ -15,7 +15,7 @@ export class GameOptionsComponent implements OnInit {
     userId: localStorage.getItem('user_id')
   };
 
-  numPlayers = [1, 2, 3, 4, 5, 6, 7];
+  numPlayers = [2, 3, 4, 5, 6, 7];
 
   constructor(
     public dialogRef: MatDialogRef<GameOptionsComponent>,

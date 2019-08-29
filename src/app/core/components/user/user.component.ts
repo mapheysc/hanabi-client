@@ -18,7 +18,8 @@ export class UserComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private userService: UserService,
     private toastr: ToastrService,
-    private location: Location
+    private location: Location,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -37,10 +38,18 @@ export class UserComponent implements OnInit {
       this.user.owns.forEach(game => {
         this.usersGames.push({owns: true, game});
       });
-      console.log(this.user);
     }, err => {
       this.toastr.error('Oops, there was an error retrieving the user');
       this.location.back();
+    });
+  }
+
+  joinGame(game) {
+    this.userService.joinGame(localStorage.getItem('user_id'), game._id).subscribe(res => {
+      this.toastr.success('You were successfully added to the game.');
+      this.router.navigate(['/game/' + game.game_id + '/' + game.players.length]);
+    }, err => {
+      this.toastr.error(err.error.message);
     });
   }
 

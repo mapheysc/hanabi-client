@@ -7,6 +7,7 @@ import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-games',
@@ -24,6 +25,7 @@ export class GamesComponent implements OnInit {
     private appService: AppService,
     private router: Router,
     public dialog: MatDialog,
+    private userService: UserService,
     private toastr: ToastrService
   ) { }
 
@@ -65,6 +67,16 @@ export class GamesComponent implements OnInit {
   navToGame(event) {
     const playerId = 0;
     this.router.navigate(['game/' + event.value + '/' + playerId]);
+  }
+
+  joinGame(game) {
+    this.userService.joinGame(localStorage.getItem('user_id'), game._id).subscribe(res => {
+      this.toastr.success('You were successfully added to the game.');
+      this.router.navigate(['/game/' + game.game_id + '/' + game.players.length]);
+    }, err => {
+      console.log('here');
+      this.toastr.error(err.error.message);
+    });
   }
 
 }

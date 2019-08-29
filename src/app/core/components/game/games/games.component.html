@@ -13,9 +13,9 @@
             <ul *ngIf="games" class="list-group">
                 <li *ngFor="let game of games"
                     [ngClass]="{'not_started': game.turn == 0, 'has_statrted': game.turn > 0, 'list-group-item': true}">
-                    <b>Spectate</b>: <a routerLink="/game/{{game._id}}">{{game.game_name}}</a>
+                    <b>Spectate</b>: <a routerLink="/game/{{game.game_id}}">{{game.game_name}}</a>
                     &nbsp;
-                    <b>Owner</b>: <a routerLink="/user/{{game.owner[0]._id}}">{{game.owner[0].name}}</a>
+                    <b>Owner</b>: <a routerLink="/user/{{game?.owner[0]._id}}">{{game?.owner[0].name}}</a>
                     &nbsp;
                     <b>Players</b>: <a class="link" [ngbPopover]="popContent" placement="right">{{game.num_players}}</a>
 

@@ -22,6 +22,10 @@ export class UserService {
     return this.appService.post('user?player_name=' + username, {});
   }
 
+  joinGame(userId, gameId) {
+    return this.appService.put('user/' + userId + '?meta_game_id=' + gameId);
+  }
+
   updateUser(userId, own = null, gameId = null) {
     let url = 'user/' + userId;
     if (own !== null) {

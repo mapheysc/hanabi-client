@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       this.toastr.success('Successfully created user.');
       this.router.navigate(['/game']);
     }, err => {
-      this.toastr.success('There was a problem creating a user for you.');
+      this.toastr.error(err.error.message);
     });
   }
 
