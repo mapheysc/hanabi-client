@@ -10,9 +10,9 @@ export class GameService {
     private appService: AppService
   ) { }
 
-  createGame(numPlayers: number, withRainbow: boolean = false, gameName: string = null) {
+  createGame(numPlayers: number, userId: string, withRainbow: boolean = false, gameName: string = null) {
     return this.appService.post(
-      'game?num_players=' + numPlayers + '&with_rainbows=' + withRainbow + '&game_name=' + gameName,
+      'game?num_players=' + numPlayers + '&with_rainbows=' + withRainbow + '&game_name=' + gameName + '&user_id=' + userId,
       {});
   }
 

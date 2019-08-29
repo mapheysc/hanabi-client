@@ -5,8 +5,13 @@
                 <h2>Game Information</h2>
             </div>
             <div class="col-md-3">
-                <button class="btn btn-danger"
-                    (click)="delete()"><i class="fa fa-trash"></i></button>
+                <button *ngIf="playerId"
+                    class="btn btn-danger"
+                    (click)="delete()"><i class="fa fa-trash"></i> Delete Game</button>
+                <button *ngIf="!playerId"
+                    class="btn btn-warning"
+                    (click)="delete()"
+                    disabled><i class="fa fa-eye"></i> Spectating</button>
             </div>
         </div>
         <div class="row">
@@ -43,16 +48,17 @@
                     </mat-card>
                 </div>
                 <mat-grid-tile-footer>
-                    <button mat-raised-button
+                    <button *ngIf="playerId"
+                        mat-raised-button
                         (click)="giveHint(player)">Give Hint</button>
                 </mat-grid-tile-footer>
             </mat-grid-tile>
         </mat-grid-list>
 
 
-        <app-player *ngIf="game"
+        <app-player *ngIf="playerId"
             [playerId]="playerId"
-            [gameId]="game.id"
+            [gameId]="game?.id"
             [changed]="changed"></app-player>
         <mat-grid-list cols="2"
             rowHeight="10:11">

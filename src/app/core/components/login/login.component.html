@@ -1,0 +1,25 @@
+<main class="login">
+    <div class="container">
+
+        <form #loginForm="ngForm"
+            class="form-signin">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <small class="text-muted">If you do not already have an account one will be created for you.</small>
+
+            <label for="inputUser"
+                class="sr-only">Username</label>
+            <input [(ngModel)]="username"
+                name="username"
+                class="form-control"
+                placeholder="Enter a username..."
+                required
+                autofocus>
+            <button class="btn btn-lg btn-primary btn-block"
+                name="sign_in"
+                type="submit"
+                [disabled]="!loginForm.valid"
+                (click)="login()">Sign in</button>
+        </form>
+
+    </div>
+</main>

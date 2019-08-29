@@ -1,31 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../../services/game.service';
-import { Router } from '@angular/router';
+import { MetaService } from 'src/app/core/services/meta.service';
 import { Subscription } from 'rxjs';
+import { GameOptionsComponent } from '../game-options/game-options.component';
+import { GameService } from 'src/app/core/services/game.service';
 import { AppService } from 'src/app/app.service';
-import { GameOptionsComponent } from '../game/game-options/game-options.component';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  selector: 'app-games',
+  templateUrl: './games.component.html',
+  styleUrls: ['./games.component.scss']
 })
-export class NavComponent implements OnInit {
+export class GamesComponent implements OnInit {
 
   games = [];
   gameCreatedSub: Subscription = null;
 
   constructor(
+    private metaService: MetaService,
     private gameService: GameService,
     private appService: AppService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
+    this.metaService.getGames().subscribe(res => {
+      this.games = res;
+    });
     this.getGameMessages();
-    this.getGames();
   }
 
   getGameMessages() {
@@ -47,8 +53,10 @@ export class NavComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.gameService.createGame(result.numPlayers, result.withRainbows, result.gameName).subscribe(gameId => {
+        this.gameService.createGame(result.numPlayers, result.userId, result.withRainbows, result.gameName).subscribe(gameId => {
           this.router.navigate(['/game/' + gameId + '/0']);
+        }, err => {
+          this.toastr.error('Must be signed in to create game.');
         });
       }
     });

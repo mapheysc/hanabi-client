@@ -11,7 +11,8 @@ export class GameOptionsComponent implements OnInit {
   gameOptions = {
     numPlayers: 3,
     withRainbows: false,
-    gameName: null
+    gameName: null,
+    userId: localStorage.getItem('user_id')
   };
 
   numPlayers = [1, 2, 3, 4, 5, 6, 7];

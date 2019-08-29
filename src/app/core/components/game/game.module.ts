@@ -6,6 +6,7 @@ import { PlayerModule } from '../player/player.module';
 import { GiveHintComponent } from './give-hint/give-hint.component';
 import { GameOptionsComponent } from './game-options/game-options.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     MaterialModule,
     PlayerModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   exports: [GameComponent],
   entryComponents: [GiveHintComponent, GameOptionsComponent]

@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>{{user?.name}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <h2>Players Current Games</h2>
+            <ul *ngIf="usersGames.length > 0"
+                class="list-group">
+                <li *ngFor="let game of usersGames"
+                    [ngClass]="{'not_started': game.game.turn == 0, 'has_statrted': game.game.turn > 0, 'list-group-item': true}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Game</b>: <a routerLink="/game/{{game.game._id}}">{{game.game.name}}</a>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Players</b>: <a class="link" [ngbPopover]="popContent" placement="right">{{game.game.players.length}}</a>
+                        </div>
+                        <div class="col-md-4 pull-right">
+                            <i *ngIf="game.owns"
+                                matTooltip="{{user?.name}} is the owner of this game"
+                                class="fa fa-key pull-right"></i>
+                        </div>
+
+                        <ng-template #popContent>
+                            <button class="btn btn-primary" (click)="joinGame(game)">Join Game</button>
+                        </ng-template>
+                    </div>
+                </li>
+            </ul>
+            <div *ngIf="usersGames.length == 0">
+                <b>
+                    {{user?.name}} is not currently part of any games.
+                </b>
+            </div>
+        </div>
+    </div>
+</div>
