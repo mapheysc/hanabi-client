@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-user',
@@ -13,10 +14,12 @@ export class UserComponent implements OnInit {
 
   user: any;
   usersGames = [];
+  userId = localStorage.getItem('user_id');
 
   constructor(
     private activeRoute: ActivatedRoute,
     private userService: UserService,
+    private gameService: GameService,
     private toastr: ToastrService,
     private location: Location,
     private router: Router
@@ -33,10 +36,14 @@ export class UserComponent implements OnInit {
       this.user = res;
       this.user.id = userId;
       this.user.games.forEach(game => {
-        this.usersGames.push({owns: false, game});
+        this.gameService.getGame(game.game).subscribe(r => {
+          this.usersGames.push({owns: false, player_id: game.player_id, game: r});
+        });
       });
       this.user.owns.forEach(game => {
-        this.usersGames.push({owns: true, game});
+        this.gameService.getGame(game.game).subscribe(r => {
+          this.usersGames.push({owns: true, player_id: game.player_id, game: r});
+        });
       });
     }, err => {
       this.toastr.error('Oops, there was an error retrieving the user');

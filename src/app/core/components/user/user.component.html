@@ -3,6 +3,10 @@
         <div class="col-md-6">
             <h1>{{user?.name}}</h1>
         </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary pull-right"
+                routerLink="/game"><i class="fa fa-home"></i> Home</button>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-10">
@@ -10,13 +14,21 @@
             <ul *ngIf="usersGames.length > 0"
                 class="list-group">
                 <li *ngFor="let game of usersGames"
-                    [ngClass]="{'not_started': game.game.turn == 0, 'has_statrted': game.game.turn > 0, 'list-group-item': true}">
+                    [ngClass]="{'not_started': game.game.turn == 0, 'has_started': game.game.turn > 0, 'has_finished': game.has_finished > 0, 'list-group-item': true}">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div *ngIf="userId != user._id"
+                            class="col-md-4">
                             <b>Game</b>: <a routerLink="/game/{{game.game._id}}">{{game.game.name}}</a>
                         </div>
+                        <div *ngIf="userId == user._id"
+                            class="col-md-4">
+                            <b>Continue Game</b>: <a
+                                routerLink="/game/{{game.game._id}}/{{game.player_id}}">{{game.game.name}}</a>
+                        </div>
                         <div class="col-md-4">
-                            <b>Players</b>: <a class="link" [ngbPopover]="popContent" placement="right">{{game.game.players.length}}</a>
+                            <b>Players</b>: <a class="link"
+                                [ngbPopover]="popContent"
+                                placement="right">{{game.game.players.length}}</a>
                         </div>
                         <div class="col-md-4 pull-right">
                             <i *ngIf="game.owns"
@@ -25,7 +37,9 @@
                         </div>
 
                         <ng-template #popContent>
-                            <button class="btn btn-primary" (click)="joinGame(game)">Join Game</button>
+                            <button class="btn btn-primary"
+                                (click)="joinGame(game)"
+                                [disabled]="game.owns">Join Game</button>
                         </ng-template>
                     </div>
                 </li>

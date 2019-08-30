@@ -10,17 +10,26 @@
     </div>
     <div class="row cards">
         <div class="col-md-12">
-            <ul *ngIf="games" class="list-group">
+            <ul *ngIf="games"
+                class="list-group">
                 <li *ngFor="let game of games"
-                    [ngClass]="{'not_started': game.turn == 0, 'has_statrted': game.turn > 0, 'list-group-item': true}">
-                    <b>Spectate</b>: <a routerLink="/game/{{game.game_id}}">{{game.game_name}}</a>
+                    [ngClass]="{'not_started': game.turn == 0, 'has_started': game.turn > 0, 'has_finished': game.has_finished > 0, 'list-group-item': true}">
+                    <div *ngIf="game.owner[0]._id != userId">
+                        <b>Spectate</b>: <a routerLink="/game/{{game.game_id}}">{{game.game_name}}</a>
+                    </div>
+                    <div *ngIf="playerInGame(game)">
+                        <b>Continue Game</b>: <a routerLink="/game/{{game.game_id}}/{{playerInGame(game)}}">{{game.game_name}}</a>
+                    </div>
                     &nbsp;
                     <b>Owner</b>: <a routerLink="/user/{{game?.owner[0]._id}}">{{game?.owner[0].name}}</a>
                     &nbsp;
-                    <b>Players</b>: <a class="link" [ngbPopover]="popContent" placement="right">{{game.num_players}}</a>
+                    <b>Players</b>: <a class="link"
+                        [ngbPopover]="popContent"
+                        placement="right">{{game.num_players}}</a>
 
                     <ng-template #popContent>
-                        <button class="btn btn-primary" (click)="joinGame(game)">Join Game</button>
+                        <button class="btn btn-primary"
+                            (click)="joinGame(game)">Join Game</button>
                     </ng-template>
                 </li>
             </ul>

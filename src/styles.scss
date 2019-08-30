@@ -22,11 +22,6 @@
     background-color: purple;
   }
 
-  .pull-right {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .link {
   color: #007bff !important;
   background-color: transparent;
@@ -44,9 +39,13 @@
   }
   
   .has_started {
-    background-color: #ffc107;
+    background-color: rgba(138, 139, 138, 0.2);
 };
 
 .not_started {
     background-color: rgba(0, 255, 0, 0.2);
+};
+
+.has_finished {
+    background-color: rgba(255, 0, 0, 0.2);
 };

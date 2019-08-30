@@ -18,6 +18,7 @@ export class GamesComponent implements OnInit {
 
   games = [];
   gameCreatedSub: Subscription = null;
+  userId = localStorage.getItem('user_id');
 
   constructor(
     private metaService: MetaService,
@@ -46,6 +47,15 @@ export class GamesComponent implements OnInit {
     this.gameService.getAll().subscribe(games => {
       this.games = games;
     });
+  }
+
+  playerInGame(game) {
+    for (const [i, player] of game.players.entries()) {
+      if (player._id === this.userId) {
+        return i;
+      }
+    }
+    return false;
   }
 
   createGame() {

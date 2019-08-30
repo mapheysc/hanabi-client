@@ -20,12 +20,14 @@ export class GiveHintComponent implements OnInit {
   }
 
   getUniqueNonRainbows(pieces) {
-    const ps = [];
+    let ps = [];
     pieces.forEach(p => {
       if (p.color !== 'rainbow') {
         if (ps.indexOf(p.color) === -1) {
           ps.push(p.color);
         }
+      } else {
+        ps = ['green', 'yellow', 'blue', 'red', 'white'];
       }
     });
     return ps;

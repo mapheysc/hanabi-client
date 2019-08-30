@@ -21,6 +21,7 @@ export class GameComponent implements OnInit {
   gameId: number;
   gameUpdatedSub: Subscription = null;
   changed = false;
+  userId = localStorage.getItem('user_id');
 
   constructor(
     private activeRoute: ActivatedRoute,

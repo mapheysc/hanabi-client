@@ -4,11 +4,11 @@
         <mat-grid-tile-header>{{player.name}} | {{player.id}}</mat-grid-tile-header>
         <mat-card *ngFor="let piece of player.pieces"
             [ngClass]="{
-            'blue': piece.color == 'blue' && piece.player_has_color,
-            'green': piece.color == 'green' && piece.player_has_color,
-            'yellow': piece.color == 'yellow' && piece.player_has_color,
-            'white': piece.color == 'white' && piece.player_has_color,
-            'red': piece.color == 'red' && piece.player_has_color
+            'blue': (piece.color == 'blue' || piece.altcolor == 'blue') && piece.player_has_color,
+            'green': (piece.color == 'green' || piece.altcolor == 'green') && piece.player_has_color,
+            'yellow': (piece.color == 'yellow' || piece.altcolor == 'yellow') && piece.player_has_color,
+            'white': (piece.color == 'white' || piece.altcolor == 'white') && piece.player_has_color,
+            'red': (piece.color == 'red' || piece.altcolor == 'red') && piece.player_has_color
             }"
             (click)="actionOnPiece(piece)">
             <mat-card-content>

@@ -24,8 +24,10 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.getUserByName(this.username).subscribe(res => {
       this.toastr.success('Successfully logged you in.');
+      localStorage.setItem('user_id', res._id);
       this.navigate(res);
     }, err => {
+      console.log(err);
       this.createUser();
     });
   }
