@@ -5,8 +5,8 @@ services:
   nginx:
     image: nginx:latest
     build:
-      context: ./
-      dockerfile: Dockerfile
+      context: ./dist
+      dockerfile: ../Dockerfile
     ports:
       - 80:80
     volumes:
