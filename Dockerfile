@@ -1,14 +1,11 @@
-FROM node:latest
+FROM node AS builder
+ARG build_env
+WORKDIR /app/
+COPY . .
 
-WORKDIR /app
+RUN npm install -g @angular/cli && npm install && npm audit fix && ng b --configuration=production
 
-ENV PATH /app/node_modules/.bin:$PATH
-
-COPY package.json /app/package.json
-
-RUN npm install -g @angular/cli@8.1.3
-RUN npm install
-
-COPY . /app
-
-RUN ng build
+FROM nginx:latest
+LABEL version="1.0"
+WORKDIR /app/
+COPY --from=builder /app/dist/hanabi-client .
