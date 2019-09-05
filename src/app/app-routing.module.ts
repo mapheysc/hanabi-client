@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'game/:id/:playerId', component: GameComponent, canActivate: [GuardService]  },
   { path: 'game/:id', component: GameComponent, canActivate: [GuardService]  },
   { path: '**', component: LoginComponent },
+  { path: '*', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

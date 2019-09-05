@@ -25,7 +25,13 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.checkToken().subscribe(res => {
       this.toastr.success('Successfully logged you in.');
-      this.router.navigate(['/game']);
+      let attemptedPage = JSON.parse(localStorage.getItem('attemptedPage'));
+      if (!attemptedPage) {
+        attemptedPage = '';
+      } else {
+        attemptedPage = attemptedPage.url;
+      }
+      this.router.navigate([attemptedPage]);
     }, err => {
       this.createUser();
     });
