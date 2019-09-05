@@ -18,10 +18,6 @@ export class UserService {
     return this.appService.get('user?player_name=' + username);
   }
 
-  createUser(username = '') {
-    return this.appService.post('user?player_name=' + username, {});
-  }
-
   joinGame(userId, gameId) {
     return this.appService.put('user/' + userId + '?meta_game_id=' + gameId);
   }

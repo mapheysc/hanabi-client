@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   username: string;
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private toastr: ToastrService,
     private router: Router
   ) { }
@@ -22,9 +23,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.getUserByName(this.username).subscribe(res => {
+    this.authService.checkToken().subscribe(res => {
       this.toastr.success('Successfully logged you in.');
-      localStorage.setItem('user_id', res._id);
       this.navigate(res);
     }, err => {
       console.log(err);
@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
   }
 
   createUser() {
-    this.userService.createUser(this.username).subscribe(res => {
-      localStorage.setItem('user_id', res);
+    this.authService.authUser(this.username).subscribe(res => {
+      localStorage.setItem('token', res.token);
       this.toastr.success('Successfully created user.');
       this.router.navigate(['/game']);
     }, err => {

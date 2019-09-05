@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { GameService } from './core/services/game.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { environment } from 'src/environments/environment.prod';
@@ -15,6 +15,7 @@ import { PlayerService } from './core/services/player.service';
 import { LoginModule } from './core/components/login/login.module';
 import { GamesModule } from './core/components/game/games/games.module';
 import { UserModule } from './core/components/user/user.module';
+import { AuthService } from './core/services/auth.service';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -37,7 +38,13 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
   providers: [
     AppService,
     GameService,
-    PlayerService
+    PlayerService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthService,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })
