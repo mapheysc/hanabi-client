@@ -7,6 +7,7 @@ import { PlayerService } from '../../services/player.service';
 import { Subscription } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-game',
@@ -90,8 +91,18 @@ export class GameComponent implements OnInit {
   }
 
   delete() {
-    this.gameService.deleteGame(this.game.id).subscribe(res => {
-      this.router.navigate(['/']);
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.gameService.deleteGame(this.game.id).subscribe(res => {
+          this.router.navigate(['/']);
+        }, err => {
+          this.toastr.error(err.error.message);
+        });
+      }
     });
   }
 

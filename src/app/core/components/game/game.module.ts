@@ -7,10 +7,11 @@ import { GiveHintComponent } from './give-hint/give-hint.component';
 import { GameOptionsComponent } from './game-options/game-options.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
 
 @NgModule({
-  declarations: [GameComponent, GiveHintComponent, GameOptionsComponent],
+  declarations: [GameComponent, GiveHintComponent, GameOptionsComponent, ConfirmDeleteComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -19,6 +20,6 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   exports: [GameComponent],
-  entryComponents: [GiveHintComponent, GameOptionsComponent]
+  entryComponents: [GiveHintComponent, GameOptionsComponent, ConfirmDeleteComponent]
 })
 export class GameModule { }
