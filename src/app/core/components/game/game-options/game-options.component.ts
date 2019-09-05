@@ -34,7 +34,6 @@ export class GameOptionsComponent implements OnInit {
   }
 
   create() {
-    console.log(this.gameOptions);
     this.dialogRef.close(this.gameOptions);
   }
 

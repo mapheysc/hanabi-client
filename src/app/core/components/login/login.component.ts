@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.checkToken().subscribe(res => {
+      console.log('here');
       this.toastr.success('Successfully logged you in.');
-      this.navigate(res);
+      this.router.navigate(['/game']);
     }, err => {
       console.log(err);
       this.createUser();
@@ -40,20 +41,6 @@ export class LoginComponent implements OnInit {
     }, err => {
       this.toastr.error(err.error.message);
     });
-  }
-
-  navigate(user) {
-    if (user.owns.length > 0) {
-      const gameId = user.owns[user.owns.length - 1].game;
-      const playerId = user.owns[user.owns.length - 1].player_id;
-      this.router.navigate(['/game/' + gameId + '/' + playerId]);
-    } else if (user.games.length > 0) {
-      const gameId = user.games[user.games.length - 1].game;
-      const playerId = user.games[user.games.length - 1].player_id;
-      this.router.navigate(['/game/' + gameId + '/' + playerId]);
-    } else {
-      this.router.navigate(['/game']);
-    }
   }
 
 }

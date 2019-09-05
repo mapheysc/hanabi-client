@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,6 @@ export class AuthService implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private toastr: ToastrService,
     private appService: AppService
   ) {
   }
@@ -91,7 +90,12 @@ export class AuthService implements HttpInterceptor {
   }
 
   checkToken() {
-    return this.appService.get('authenticate');
+    return this.appService.get('authenticate').pipe(map(res => {
+      if (res.msg) {
+        return true;
+      }
+      return false;
+    }));
   }
 
 }

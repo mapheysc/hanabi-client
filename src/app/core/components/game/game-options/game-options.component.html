@@ -4,7 +4,7 @@
         <input matInput placeholder="Game Name" [(ngModel)]="gameOptions.gameName">
     </mat-form-field>
     <mat-form-field>
-        <mat-label>Select Number of Players</mat-label>
+        <mat-label>Number of Players</mat-label>
         <mat-select (selectionChange)="selectNumPlayers($event)">
             <mat-option *ngFor="let p of numPlayers"
                 [value]="p">
@@ -13,7 +13,7 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field>
-        <mat-label>Play Game With Rainbows</mat-label>
+        <mat-label>With Rainbows</mat-label>
         <mat-select (selectionChange)="selectWithRainbows($event)">
             <mat-option [value]="true">
                 Yes

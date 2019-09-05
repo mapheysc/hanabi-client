@@ -65,9 +65,10 @@ export class GamesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.gameService.createGame(result.numPlayers, result.userId, result.withRainbows, result.gameName).subscribe(gameId => {
+        this.gameService.createGame(result.numPlayers, result.withRainbows, result.gameName).subscribe(gameId => {
           this.router.navigate(['/game/' + gameId + '/0']);
         }, err => {
+          console.log(err);
           this.toastr.error('Must be signed in to create game.');
         });
       }
