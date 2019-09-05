@@ -24,11 +24,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.checkToken().subscribe(res => {
-      console.log('here');
       this.toastr.success('Successfully logged you in.');
       this.router.navigate(['/game']);
     }, err => {
-      console.log(err);
       this.createUser();
     });
   }

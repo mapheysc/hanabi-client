@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MetaService } from 'src/app/core/services/meta.service';
 import { Subscription } from 'rxjs';
 import { GameOptionsComponent } from '../game-options/game-options.component';
@@ -14,10 +14,11 @@ import { UserService } from 'src/app/core/services/user.service';
   templateUrl: './games.component.html',
   styleUrls: ['./games.component.scss']
 })
-export class GamesComponent implements OnInit {
+export class GamesComponent implements OnInit, OnDestroy {
 
   games = [];
   gameCreatedSub: Subscription = null;
+  gameDeletedSub: Subscription = null;
   userId = localStorage.getItem('user_id');
 
   constructor(
@@ -37,9 +38,17 @@ export class GamesComponent implements OnInit {
     this.getGameMessages();
   }
 
+  ngOnDestroy() {
+    this.gameCreatedSub.unsubscribe();
+    this.gameDeletedSub.unsubscribe();
+  }
+
   getGameMessages() {
     this.gameCreatedSub = this.appService.onMessage('game_created').subscribe(res => {
       this.games.push(res);
+    });
+    this.gameDeletedSub = this.appService.onMessage('game_deleted').subscribe(gameId => {
+      this.games.splice(this.games.indexOf(game => game.game_id === gameId));
     });
   }
 

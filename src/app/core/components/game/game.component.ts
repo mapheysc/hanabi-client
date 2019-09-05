@@ -97,8 +97,8 @@ export class GameComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.gameService.deleteGame(this.game.id).subscribe(res => {
-          this.router.navigate(['/']);
+        this.gameService.deleteGame(this.game.id).subscribe(() => {
+          this.router.navigate(['/game']);
         }, err => {
           this.toastr.error(err.error.message);
         });
