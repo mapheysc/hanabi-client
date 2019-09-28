@@ -19,6 +19,7 @@ export class UserService {
   }
 
   joinGame(userId, gameId) {
+    console.log(userId, gameId);
     return this.appService.put('user/' + userId + '?meta_game_id=' + gameId);
   }
 

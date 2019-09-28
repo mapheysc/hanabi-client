@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
 
   user: any;
   usersGames = [];
-  userId = localStorage.getItem('user_id');
+  userId = localStorage.getItem('currentUser');
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -35,14 +35,23 @@ export class UserComponent implements OnInit {
     this.userService.getUser(userId).subscribe(res => {
       this.user = res;
       this.user.id = userId;
+      console.log(this.user);
       this.user.games.forEach(game => {
         this.gameService.getGame(game.game).subscribe(r => {
-          this.usersGames.push({owns: false, player_id: game.player_id, game: r});
+          this.usersGames.push({
+            owns: false,
+            player_id: game.player_id,
+            game: r,
+          });
         });
       });
       this.user.owns.forEach(game => {
         this.gameService.getGame(game.game).subscribe(r => {
-          this.usersGames.push({owns: true, player_id: game.player_id, game: r});
+          this.usersGames.push({
+            owns: this.userId === this.user.id,
+            player_id: game.player_id,
+            game: r,
+          });
         });
       });
     }, err => {
@@ -51,10 +60,10 @@ export class UserComponent implements OnInit {
     });
   }
 
-  joinGame(game) {
-    this.userService.joinGame(localStorage.getItem('user_id'), game._id).subscribe(res => {
+  joinGame(metaGame) {
+    this.userService.joinGame(this.userId, metaGame.game._id).subscribe(res => {
       this.toastr.success('You were successfully added to the game.');
-      this.router.navigate(['/game/' + game.game_id + '/' + game.players.length]);
+      this.router.navigate(['/game/' + metaGame.game._id + '/' + metaGame.game.players.length]);
     }, err => {
       this.toastr.error(err.error.message);
     });

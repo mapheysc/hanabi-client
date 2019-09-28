@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.logout();
   }
 
   login() {
@@ -39,6 +40,8 @@ export class LoginComponent implements OnInit {
 
   createUser() {
     this.authService.authUser(this.username).subscribe(res => {
+      const payload = JSON.parse(window.atob(res.token.split('.')[1]));
+      localStorage.setItem('currentUser', payload.identity);
       localStorage.setItem('token', res.token);
       this.toastr.success('Successfully created user.');
       this.router.navigate(['/game']);

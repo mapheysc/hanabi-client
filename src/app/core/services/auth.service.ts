@@ -15,7 +15,8 @@ export class AuthService implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private appService: AppService
+    private appService: AppService,
+    private toastrCtrl: ToastrService
   ) {
   }
 
@@ -46,7 +47,6 @@ export class AuthService implements HttpInterceptor {
           this.message = 'Invalid request. Please try again';
         } else if (err.status === 404) {
           this.message = 'Requested item not found.';
-          this.router.navigate(['not-found']);
         } else if (err.status === 422) {
           this.message = 'There was a problem authenticating the user. Please login again';
           this.logout();
@@ -59,7 +59,6 @@ export class AuthService implements HttpInterceptor {
         } else if (err.status === 410) {
         } else {
           this.message = 'An error occurred';
-          console.error(this.message);
         }
       }
       throw (err);

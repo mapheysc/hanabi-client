@@ -35,11 +35,14 @@
                                 matTooltip="{{user?.name}} is the owner of this game"
                                 class="fa fa-key pull-right"></i>
                         </div>
-
                         <ng-template #popContent>
                             <button class="btn btn-primary"
                                 (click)="joinGame(game)"
-                                [disabled]="game.owns">Join Game</button>
+                                [disabled]="game.owns">
+                                <a *ngIf="game.owns"
+                                    matTooltip="Cannot join a game that you already own.">Join Game</a>
+                                <a *ngIf="!game.owns">Join Game</a>
+                            </button>
                         </ng-template>
                     </div>
                 </li>

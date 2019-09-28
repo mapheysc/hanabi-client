@@ -8,7 +8,8 @@
             'green': (piece.color == 'green' || piece.altcolor == 'green') && piece.player_has_color,
             'yellow': (piece.color == 'yellow' || piece.altcolor == 'yellow') && piece.player_has_color,
             'white': (piece.color == 'white' || piece.altcolor == 'white') && piece.player_has_color,
-            'red': (piece.color == 'red' || piece.altcolor == 'red') && piece.player_has_color
+            'red': (piece.color == 'red' || piece.altcolor == 'red') && piece.player_has_color,
+            'grey': !piece.playe_has_color
             }"
             (click)="actionOnPiece(piece)">
             <mat-card-content>
