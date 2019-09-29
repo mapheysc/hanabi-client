@@ -8,13 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   title = 'hanabi-client';
+  onLogin = false;
+  currentUser = localStorage.getItem('currentUser');
 
   constructor(
-  ) {
-
-  }
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.router.events.subscribe((res: any) => {
+      this.onLogin = false;
+      if (res.url === '/login') {
+        this.onLogin = true;
+      }
+    });
   }
 }

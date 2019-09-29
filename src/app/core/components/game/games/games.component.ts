@@ -77,7 +77,6 @@ export class GamesComponent implements OnInit, OnDestroy {
         this.gameService.createGame(result.numPlayers, result.withRainbows, result.gameName).subscribe(gameId => {
           this.router.navigate(['/game/' + gameId + '/0']);
         }, err => {
-          console.log(err);
           this.toastr.error('Must be signed in to create game.');
         });
       }
@@ -90,11 +89,11 @@ export class GamesComponent implements OnInit, OnDestroy {
   }
 
   joinGame(game) {
+    console.log(game);
     this.userService.joinGame(localStorage.getItem('user_id'), game._id).subscribe(res => {
       this.toastr.success('You were successfully added to the game.');
       this.router.navigate(['/game/' + game.game_id + '/' + game.players.length]);
     }, err => {
-      console.log('here');
       this.toastr.error(err.error.message);
     });
   }

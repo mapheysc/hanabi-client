@@ -29,7 +29,7 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HttpClientModule,
     BrowserAnimationsModule,
     SocketIoModule.forRoot(config),
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}), // ToastrModule added
     GameModule,
     GamesModule,
     UserModule,

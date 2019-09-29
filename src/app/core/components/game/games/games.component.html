@@ -14,7 +14,7 @@
                 class="list-group">
                 <li *ngFor="let game of games"
                     [ngClass]="{'not_started': game.turn == 0, 'has_started': game.turn > 0, 'has_finished': game.has_finished > 0, 'list-group-item': true}">
-                    <div *ngIf="game.owner._id != userId">
+                    <div *ngIf="game?.owner?._id != userId">
                         <b>Spectate</b>: <a routerLink="/game/{{game.game_id}}">{{game.game_name}}</a>
                     </div>
                     <div *ngIf="playerInGame(game)">

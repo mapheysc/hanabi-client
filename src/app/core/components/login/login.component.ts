@@ -43,7 +43,11 @@ export class LoginComponent implements OnInit {
       const payload = JSON.parse(window.atob(res.token.split('.')[1]));
       localStorage.setItem('currentUser', payload.identity);
       localStorage.setItem('token', res.token);
-      this.toastr.success('Successfully created user.');
+      if (res.existed) {
+        this.toastr.success('Successfully logged in. Welcome back.');
+      } else {
+        this.toastr.success('Successfully created user.');
+      }
       this.router.navigate(['/game']);
     }, err => {
       this.toastr.error(err.error.message);

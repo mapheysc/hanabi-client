@@ -35,7 +35,6 @@ export class UserComponent implements OnInit {
     this.userService.getUser(userId).subscribe(res => {
       this.user = res;
       this.user.id = userId;
-      console.log(this.user);
       this.user.games.forEach(game => {
         this.gameService.getGame(game.game).subscribe(r => {
           this.usersGames.push({
@@ -61,7 +60,8 @@ export class UserComponent implements OnInit {
   }
 
   joinGame(metaGame) {
-    this.userService.joinGame(this.userId, metaGame.game._id).subscribe(res => {
+    console.log(metaGame);
+    this.userService.joinGame(this.userId, metaGame.meta_game).subscribe(res => {
       this.toastr.success('You were successfully added to the game.');
       this.router.navigate(['/game/' + metaGame.game._id + '/' + metaGame.game.players.length]);
     }, err => {
